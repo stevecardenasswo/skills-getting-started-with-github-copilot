@@ -20,19 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
 
-        let participantsList = '';
-        if (details.participants.length > 0) {
-          participantsList = `<ul class="participants-list no-bullets">
-            ${details.participants.map(email => `
-              <li data-activity="${encodeURIComponent(name)}" data-email="${encodeURIComponent(email)}">
-                <span class="participant-email">${email}</span>
-                <span class="delete-participant" title="Remove participant">&#128465;</span>
-              </li>
-            `).join('')}
-          </ul>`;
-        } else {
-          participantsList = `<p class="no-participants">No participants yet. Be the first to sign up!</p>`;
-        }
+        const participantsList = details.participants.length > 0
+          ? `<ul class="participants-list">
+              ${details.participants.map(email => `<li>${email}</li>`).join('')}
+             </ul>`
+          : `<p class="no-participants">No participants yet. Be the first to sign up!</p>`;
 
         activityCard.innerHTML = `
           <h4>${name}</h4>
